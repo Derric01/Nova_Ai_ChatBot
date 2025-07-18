@@ -28,14 +28,16 @@ const MessageBubble = ({ message, index }: { message: ChatMessage; index: number
       opacity: 1, 
       y: 0, 
       scale: 1,
-      x: 0,
-      transition: { 
-        type: 'spring', 
-        stiffness: 300, 
-        damping: 30,
-        delay: index * 0.1 
-      } 
+      x: 0
     }
+  };
+
+  // Define the transition separately to avoid type errors
+  const messageBubbleTransition = { 
+    type: "spring" as const, 
+    stiffness: 300, 
+    damping: 30,
+    delay: index * 0.1 
   };
   
   return (
@@ -44,6 +46,7 @@ const MessageBubble = ({ message, index }: { message: ChatMessage; index: number
       initial="hidden"
       animate="visible"
       variants={messageBubbleVariants}
+      transition={messageBubbleTransition}
     >
       {!isUser && (
         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-lg shadow-purple-500/20 relative">
