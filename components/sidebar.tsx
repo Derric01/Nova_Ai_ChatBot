@@ -4,16 +4,17 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { PlusIcon, Code2Icon, BrainCircuitIcon, LayoutDashboardIcon } from 'lucide-react';
+import { PlusIcon, Code2Icon, BrainCircuitIcon, LayoutDashboardIcon, X } from 'lucide-react';
 import { dummyConversations, ChatSession } from '@/lib/gemini';
 import { motion, AnimatePresence } from 'framer-motion';
 
 type SidebarProps = {
   onNewChat?: () => void;
   onSelectChat?: (sessionId: string) => void;
+  onClose?: () => void;
 };
 
-export function Sidebar({ onNewChat, onSelectChat }: SidebarProps) {
+export function Sidebar({ onNewChat, onSelectChat, onClose }: SidebarProps) {
   const [chatSessions, setChatSessions] = useState<ChatSession[]>(dummyConversations);
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -104,14 +105,28 @@ export function Sidebar({ onNewChat, onSelectChat }: SidebarProps) {
           )}
         </AnimatePresence>
         
-        <motion.button
-          className="p-2 rounded-md hover:bg-purple-800/30 ml-2 text-purple-300"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => setIsCollapsed(!isCollapsed)}
-        >
-          <LayoutDashboardIcon size={16} />
-        </motion.button>
+        <div className="flex items-center">
+          {onClose && (
+            <motion.button
+              className="p-2 rounded-md hover:bg-purple-800/30 ml-2 text-purple-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={onClose}
+              aria-label="Close sidebar"
+            >
+              <X size={16} />
+            </motion.button>
+          )}
+          
+          <motion.button
+            className="p-2 rounded-md hover:bg-purple-800/30 ml-2 text-purple-300"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setIsCollapsed(!isCollapsed)}
+          >
+            <LayoutDashboardIcon size={16} />
+          </motion.button>
+        </div>
       </div>
       
       <ScrollArea className="flex-1">

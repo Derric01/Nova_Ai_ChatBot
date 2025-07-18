@@ -268,7 +268,11 @@ const WelcomeScreen = () => {
   );
 };
 
-export function ChatInterface() {
+type ChatInterfaceProps = {
+  className?: string;
+};
+
+export function ChatInterface({ className = "" }: ChatInterfaceProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -362,7 +366,7 @@ export function ChatInterface() {
   };
 
   return (
-    <div className="flex-1 flex flex-col h-full bg-gradient-to-b from-purple-950/50 to-indigo-950/50 overflow-hidden relative">
+    <div className={`flex-1 flex flex-col h-full bg-gradient-to-b from-purple-950/50 to-indigo-950/50 overflow-hidden relative ${className}`}>
       {/* Background decorative elements */}
       <motion.div 
         className="absolute top-1/4 -right-20 w-60 h-60 bg-gradient-to-r from-pink-500/5 to-purple-500/5 rounded-full blur-3xl pointer-events-none"
