@@ -1,7 +1,8 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// Initialize the Gemini API with your API key
-const genAI = new GoogleGenerativeAI('AIzaSyDVaNNxincg8dsUOYhQNQ-O8k57y-Yn-mU');
+// Initialize the Gemini API with your API key from environment variables
+const apiKey = process.env.GEMINI_API_KEY || '';
+const genAI = new GoogleGenerativeAI(apiKey);
 
 // Get the model - using gemini-2.0-flash for text generation (updated model name)
 const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
